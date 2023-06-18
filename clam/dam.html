@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Discord Webhook Sender</title>
+  </head>
+  <body>
+    <form>
+      <label for="url">Discord Webhook URL:</label>
+      <input type="text" id="url" name="url"><br>
+
+      <label for="message">Message:</label>
+      <textarea id="message" name="message"></textarea><br>
+
+      <input type="submit" value="Send Message to Webhook">
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $("form").submit(function(event) {
+        event.preventDefault();
+        var url = $("#url").val();
+        var message = $("#message").val();
+
+        while (true) {
+          var payload = { "content": message };
+          $.post(url, JSON.stringify(payload)).done(function(response) {
+            console.log("Message sent successfully!");
+          }).fail(function(error) {
+            console.error("Error:", error);
+          });
+        };
+      });
+    </script>
+  </body>
+</html>
