@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -21,15 +22,21 @@
         var url = $("#url").val();
         var message = $("#message").val();
 
-        while (true) {
+        var intervalID = setInterval(function() {
           var payload = { "content": message };
           $.post(url, JSON.stringify(payload)).done(function(response) {
             console.log("Message sent successfully!");
           }).fail(function(error) {
             console.error("Error:", error);
           });
-        };
+        }, 1000);
+
+        setTimeout(function() {
+          clearInterval(intervalID);
+        }, 10000);
       });
     </script>
   </body>
 </html>
+
+
